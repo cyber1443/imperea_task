@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 34,
-    width: 170,
+    width: 160,
     backgroundColor: colors.white.default,
     borderWidth: 1,
     borderColor: colors.gray.light,

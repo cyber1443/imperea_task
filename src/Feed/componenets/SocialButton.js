@@ -18,7 +18,7 @@ export default ({IconComponent, title}) => {
 const styles = StyleSheet.create({
   container: {
     height: 45,
-    width: 130,
+    width: 120,
     backgroundColor: colors.white.default,
     padding: 10,
     flexDirection: 'row',
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
   },
   text: {
     ...typography.heading5,
-    marginLeft: 40,
+    marginLeft: 25,
   },
 });

@@ -99,7 +99,7 @@ export default () => {
             IconComponent={() => (
               <MaterialIcons
                 name="facebook"
-                size={25}
+                size={20}
                 color={colors.facebook}
               />
             )}
@@ -107,13 +107,13 @@ export default () => {
           <SocialButton
             title={strings.google}
             IconComponent={() => (
-              <FontAwesome name="google" size={25} color={colors.google} />
+              <FontAwesome name="google" size={20} color={colors.google} />
             )}
           />
           <SocialButton
             title={strings.twitter}
             IconComponent={() => (
-              <FontAwesome name="twitter" size={25} color={colors.twitter} />
+              <FontAwesome name="twitter" size={20} color={colors.twitter} />
             )}
           />
           <SocialButton
@@ -121,7 +121,7 @@ export default () => {
             IconComponent={() => (
               <FontAwesome
                 name="instagram"
-                size={25}
+                size={20}
                 color={colors.instagram}
               />
             )}
@@ -129,13 +129,13 @@ export default () => {
           <SocialButton
             title={strings.linkedin}
             IconComponent={() => (
-              <FontAwesome name="linkedin" size={25} color={colors.linkedin} />
+              <FontAwesome name="linkedin" size={20} color={colors.linkedin} />
             )}
           />
           <SocialButton
             title={strings.website}
             IconComponent={() => (
-              <FontAwesome5 name="link" size={25} color={colors.website} />
+              <FontAwesome5 name="link" size={20} color={colors.website} />
             )}
           />
         </View>
@@ -151,7 +151,9 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white.default,
-    padding: 23,
+    paddingLeft: 20,
+    paddingVertical: 20,
+    paddingRight: 10,
   },
   alertComponentContainer: {
     width: 20,

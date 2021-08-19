@@ -71,7 +71,7 @@ const Feed = () => {
       isOpen={isMenuOpened}
       menu={SideMenuComponent}
       edgeHitWidth={100}
-      openMenuOffset={width * 0.8}
+      openMenuOffset={width * 0.85}
       animationFunction={(prop, value) =>
         Animated.spring(prop, {
           toValue: value,
