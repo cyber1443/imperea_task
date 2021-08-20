@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {
   Text,
   View,
@@ -20,6 +20,7 @@ import {setCategories, setCoupons} from './state/reducer';
 import ListView from './componenets/ListView';
 import {strings} from '../localization';
 import Dropdown from './componenets/Dropdown';
+import NavBar from './componenets/NavBar';
 
 const {width} = Dimensions.get('screen');
 
@@ -64,6 +65,27 @@ const Feed = () => {
     getCoupons();
   }, [getCategories, getCoupons]);
 
+  const scrollY = useRef(new Animated.Value(0)).current;
+
+  const onScroll = Animated.event(
+    [{nativeEvent: {contentOffset: {y: scrollY}}}],
+    {useNativeDriver: true},
+  );
+
+  const translateY = Animated.diffClamp(scrollY, 0, 380).interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+  });
+
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 200, 300],
+    outputRange: [1, 0.2, 0],
+  });
+  const navBarOpacity = scrollY.interpolate({
+    inputRange: [0, 200, 300],
+    outputRange: [0, 0.4, 1],
+  });
+
   const SideMenuComponent = <Menu />;
   return (
     <SideMenu
@@ -86,22 +108,35 @@ const Feed = () => {
           barStyle="light-content"
           translucent
         />
-        <Header onMenuPress={toggleMenu} />
-        <CategoriesSlider
-          data={categories.data}
-          isLoading={categories.isLoading}
-        />
-        <View style={styles.couponsHeader}>
-          <Text style={styles.couponsTitle}>{strings.active_coupons}</Text>
-          <Dropdown
+        <Animated.View
+          style={{
+            ...styles.animatedContainer,
+            transform: [{translateY}],
+            opacity: headerOpacity,
+          }}>
+          <Header onMenuPress={toggleMenu} />
+          <CategoriesSlider
             data={categories.data}
-            defaultButtonText={strings.categories}
-            setSelectedCategory={setSelectedCategory}
+            isLoading={categories.isLoading}
           />
-        </View>
+          <View style={styles.couponsHeader}>
+            <Text style={styles.couponsTitle}>{strings.active_coupons}</Text>
+            <Dropdown
+              data={categories.data}
+              defaultButtonText={strings.categories}
+              setSelectedCategory={setSelectedCategory}
+            />
+          </View>
+        </Animated.View>
+        <NavBar
+          onMenuPress={toggleMenu}
+          style={styles.navBar}
+          opacity={navBarOpacity}
+        />
         <ListView
           data={selectedCategory ? filteredCoupons : coupons.data}
           isLoading={coupons.isLoading}
+          onScroll={onScroll}
         />
       </SafeAreaProvider>
     </SideMenu>
@@ -123,6 +158,16 @@ const styles = StyleSheet.create({
   couponsTitle: {
     ...typography.heading1,
     fontSize: 20,
+  },
+  animatedContainer: {
+    position: 'absolute',
+    zIndex: 10,
+  },
+  navBar: {
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: colors.gray.dark,
   },
 });
 

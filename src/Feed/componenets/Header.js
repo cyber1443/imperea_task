@@ -4,32 +4,20 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity,
-  Image,
+  Dimensions,
 } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {colors, typography} from '../../Theme';
 import {strings} from '../../localization';
+import NavBar from './NavBar';
+
+const {width} = Dimensions.get('screen');
 
 export default ({onMenuPress}) => {
   return (
     <ImageBackground
       style={styles.container}
       source={require('../../assets/headerBg.png')}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={onMenuPress}>
-          <Feather name="menu" size={25} color={colors.white.default} />
-        </TouchableOpacity>
-        <Image
-          style={styles.logo}
-          resizeMode="contain"
-          source={require('../../assets/logo_white.png')}
-        />
-        <TouchableOpacity>
-          <FontAwesome name="qrcode" size={25} color={colors.white.default} />
-        </TouchableOpacity>
-      </View>
+      <NavBar onMenuPress={onMenuPress} />
       <Text style={styles.headline1}>{strings.welcome}</Text>
       <View style={styles.discountContainer}>
         <View style={styles.devider} />
@@ -47,17 +35,9 @@ export default ({onMenuPress}) => {
 const styles = StyleSheet.create({
   container: {
     height: 220,
+    width: width,
     padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  logo: {
-    width: 150,
-    height: 20,
+    paddingTop: 40,
   },
   headline1: {
     ...typography.heading2,

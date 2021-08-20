@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   container: {
     width: width * 0.43,
     height: 200,
-    margin: 10,
+    marginRight: 15,
+    marginBottom: 20,
   },
   imageContainer: {
     width: '100%',

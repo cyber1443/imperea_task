@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white.default,
     paddingLeft: 20,
-    paddingVertical: 20,
+    paddingBottom: 20,
+    paddingTop: 40,
     paddingRight: 10,
   },
   alertComponentContainer: {

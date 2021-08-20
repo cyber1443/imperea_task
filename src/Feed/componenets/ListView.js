@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {FlatList, StyleSheet, View, Text} from 'react-native';
+import {Animated, StyleSheet, View, Text} from 'react-native';
 import CouponItem from './CouponItem';
 import CouponSkeleon from './CouponSkeleon';
 import LottieView from 'lottie-react-native';
@@ -8,7 +8,7 @@ import {strings} from '../../localization';
 
 const skeletonData = [{}, {}, {}, {}, {}, {}];
 
-export default ({data, isLoading}) => {
+export default ({data, isLoading, onScroll}) => {
   const keyExtractor = useCallback((_, index) => index.toString(), []);
 
   const renderItem = useCallback(
@@ -29,22 +29,33 @@ export default ({data, isLoading}) => {
     </View>
   );
 
+  const getAlignItems = () => {
+    return {
+      alignItems: data.length > 1 ? 'center' : 'flex-start',
+    };
+  };
+
   return (
-    <FlatList
+    <Animated.FlatList
       keyExtractor={keyExtractor}
       data={isLoading ? skeletonData : data}
       renderItem={renderItem}
       numColumns={2}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={{
+        ...styles.contentContainer,
+        ...getAlignItems(),
+      }}
       ListEmptyComponent={listEmptyComponent}
+      onScroll={onScroll}
     />
   );
 };
 
 const styles = StyleSheet.create({
   contentContainer: {
-    alignItems: 'center',
+    paddingLeft: 20,
+    paddingTop: 300,
   },
   animationContainer: {
     height: 200,

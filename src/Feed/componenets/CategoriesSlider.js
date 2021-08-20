@@ -1,11 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import {strings} from '../../localization';
 import {colors, typography} from '../../Theme';
 import CategorySkeleton from './CategorySkeleton';
@@ -40,11 +34,16 @@ export default ({data, isLoading}) => {
     </TouchableOpacity>
   );
 
-  const renderCategoies = () => {
-    return isLoading
-      ? skeletonData.map((_, index) => <CategorySkeleton index={index} />)
-      : sliderData.map(item => <Category item={item} />);
-  };
+  const renderCategoies = useCallback(
+    ({item, index}) => {
+      return isLoading ? (
+        <CategorySkeleton index={index} />
+      ) : (
+        <Category item={item} />
+      );
+    },
+    [isLoading],
+  );
 
   const setItemPressed = item => {
     const newData = sliderData.map(i =>
@@ -59,20 +58,20 @@ export default ({data, isLoading}) => {
         <Text style={styles.headline1}>{strings.featured_categories} </Text>
         <Text style={styles.headline2}>{strings.see_all} </Text>
       </View>
-      <ScrollView
+      <FlatList
+        data={isLoading ? skeletonData : sliderData}
+        renderItem={renderCategoies}
         style={styles.sliderContainer}
         horizontal
         contentContainerStyle={styles.sliderContentContainer}
-        showsHorizontalScrollIndicator={false}>
-        {renderCategoies()}
-      </ScrollView>
+        showsHorizontalScrollIndicator={false}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     marginTop: 10,
     marginBottom: 30,
   },
