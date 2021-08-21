@@ -73,7 +73,7 @@ const Feed = () => {
   );
 
   const translateY = Animated.diffClamp(scrollY, 0, 380).interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 30],
     outputRange: [0, -50],
   });
 
@@ -82,8 +82,8 @@ const Feed = () => {
     outputRange: [1, 0.2, 0],
   });
   const navBarOpacity = scrollY.interpolate({
-    inputRange: [0, 200, 300],
-    outputRange: [0, 0.4, 1],
+    inputRange: [0, 200],
+    outputRange: [0, 1],
   });
 
   const SideMenuComponent = <Menu />;

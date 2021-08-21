@@ -46,8 +46,10 @@ export default ({data, isLoading}) => {
   );
 
   const setItemPressed = item => {
-    const newData = sliderData.map(i =>
-      i.id === item.id ? {...i, isPressed: true} : {...i, isPressed: false},
+    const newData = sliderData.map(category =>
+      category.id === item.id
+        ? {...category, isPressed: true}
+        : {...category, isPressed: false},
     );
     setSliderData(newData);
   };
