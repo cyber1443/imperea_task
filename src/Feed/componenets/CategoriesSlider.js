@@ -34,17 +34,13 @@ export default ({data, isLoading}) => {
     </TouchableOpacity>
   );
 
-  const renderCategoies = useCallback(
-    ({item, index}) => {
-      return isLoading ? (
-        <CategorySkeleton index={index} />
-      ) : (
-        <Category item={item} />
-      );
-    },
-    [isLoading],
-  );
-
+  const renderCategoies = ({item, index}) => {
+    return isLoading ? (
+      <CategorySkeleton index={index} />
+    ) : (
+      <Category item={item} />
+    );
+  };
   const setItemPressed = item => {
     const newData = sliderData.map(category =>
       category.id === item.id
